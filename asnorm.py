@@ -257,7 +257,7 @@ if __name__ == '__main__':
     # n = WrappedModel(n).cuda()
     # s = ModelTrainer(n, **vars(args))
     s = ECAPAModel(**vars(args))
-    s.loadParameters(args.initial_model)
+    s.load_parameters(args.initial_model)
     model =  s.__model__
 
     fmt = "\n=== {:30} ===\n"
