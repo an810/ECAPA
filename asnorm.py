@@ -3,6 +3,7 @@ import yaml, pickle
 import argparse, warnings
 from sklearn.metrics.pairwise import cosine_similarity as cs_sklearn
 from ECAPAModel import *
+import random
 
 
 parser = argparse.ArgumentParser(description = "Asnorm")
