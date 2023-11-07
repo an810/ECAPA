@@ -122,7 +122,7 @@ if args.config is not None:
         else:
             sys.stderr.write("Ignored unknown parameter {} in yaml.\n".format(k))
 
-def cosine_score(model, test_list, test_path, full=False, norm=True, embeddings_file='data/embedding_data/embeddings_file.pickle'):
+def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_file='data/embedding_data/embeddings_file.pickle'):
     model.__model__.eval()
     files = []
     embeddings = {}
@@ -132,7 +132,7 @@ def cosine_score(model, test_list, test_path, full=False, norm=True, embeddings_
     if "score_norm" in params:
         train_cohort = torch.stack(list(train_embedding_dict.values()))
         
-    lines = open(test_list).read().splitlines()
+    lines = open(eval_list).read().splitlines()
     for line in lines:
         files.append(line.split()[1])
         files.append(line.split()[2])
@@ -143,7 +143,7 @@ def cosine_score(model, test_list, test_path, full=False, norm=True, embeddings_
         if not full:
             print('Loading cut audio')
             for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
-                audio, _  = soundfile.read(os.path.join(test_path, file))  
+                audio, _  = soundfile.read(os.path.join(eval_path, file))  
                 
                 # Splited utterance matrix
                 max_audio = 300 * 160 + 240
@@ -165,7 +165,7 @@ def cosine_score(model, test_list, test_path, full=False, norm=True, embeddings_
         else:
             print('loading full audio')
             for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
-                audio, _  = soundfile.read(os.path.join(test_path, file)) 
+                audio, _  = soundfile.read(os.path.join(eval_path, file)) 
             # Full utterance
                 data_1 = torch.FloatTensor(numpy.stack([audio],axis=0)).cuda()
                 with torch.no_grad():
@@ -248,7 +248,7 @@ def cosine_score(model, test_list, test_path, full=False, norm=True, embeddings_
 
 
 if __name__ == '__main__':
-    h = pd.read_csv(args.test_list, sep='\t', header = None)
+    h = pd.read_csv(args.eval_list, sep='\t', header = None)
     h[2] = 0
     h = h[h.columns[[-1,0,1]]]
     h.to_csv(args.save_temporary_path, sep='\t',index=False,header=False)
@@ -279,14 +279,14 @@ if __name__ == '__main__':
     scores = cosine_score(
         s, 
         args.save_temporary_path, 
-        args.test_path,     
+        args.eval_path,     
         embeddings_file=args.embedding_file_path
     )
 
     scores_2 = cosine_score(
         s, 
         args.save_temporary_path, 
-        args.test_path,     
+        args.eval_path,     
         full=True,
         embeddings_file=args.embedding_full_file_path
     )
@@ -298,6 +298,6 @@ if __name__ == '__main__':
 
     final_scale = (np.array(scaled) + np.array(scaled_2))/2
 
-    h = pd.read_csv(args.test_list, sep='\t', header = None)
+    h = pd.read_csv(args.eval_list, sep='\t', header = None)
     h[2] = pd.Series(final_scale)
     h.to_csv(args.save_temporary_path, sep='\t',index=False,header=False)
