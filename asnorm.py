@@ -124,7 +124,7 @@ if args.config is not None:
             sys.stderr.write("Ignored unknown parameter {} in yaml.\n".format(k))
 
 def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_file='data/embedding_data/embeddings_file.pickle'):
-    model.__model__.eval()
+    model.eval()
     files = []
     embeddings = {}
 
@@ -160,7 +160,7 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
                 data_2 = torch.FloatTensor(feats).cuda()    
 
                 with torch.no_grad():
-                    embedding_2 = model.__model__(data_2)
+                    embedding_2 = model(data_2)
                     embedding_2 = F.normalize(embedding_2, p=2, dim=1)
                 embeddings[file] = embedding_2
         else:
@@ -170,7 +170,7 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
             # Full utterance
                 data_1 = torch.FloatTensor(numpy.stack([audio],axis=0)).cuda()
                 with torch.no_grad():
-                    embedding_2 = model.__model__(data_1)
+                    embedding_2 = model(data_1)
                     embedding_2 = F.normalize(embedding_2, p=2, dim=1)
                 embeddings[file] = embedding_2
 
@@ -264,7 +264,7 @@ if __name__ == '__main__':
     fmt = "\n=== {:30} ===\n"
     train_list1 = args.train_list
     train_path1 = args.train_path
-    train_embedding_file = 'data/embedding_data/train_emb_dict.pickle'
+    train_embedding_file = '/kaggle/input/rawnet3-model/ECAPA_DEV_SET_ecapa_emb.pkl'
 
     print(fmt.format('Loading train_embedding_dict'))
     train_embedding_dict = create_embedding_dict('train',train_list1, train_path1, model, train_embedding_file)
