@@ -258,7 +258,7 @@ if __name__ == '__main__':
     # s = ModelTrainer(n, **vars(args))
     s = ECAPAModel(**vars(args))
     s.load_parameters(args.initial_model)
-    model =  s.__model__
+    model =  s
 
     fmt = "\n=== {:30} ===\n"
     train_list1 = args.train_list
