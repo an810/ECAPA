@@ -4,9 +4,16 @@ nClasses: 835
 batch_size: 32
 trainfunc: aamsoftmax
 # Change language here
+embedding_file_path: output/embedding_data/vietnam_private_embeddings_file.pickle
+embedding_full_file_path: output/embedding_data/vietnam_private_embeddings_full_file.pickle
+save_temporary_path: output/submission/t1/private_test/vietnam_private_pairs.csv
+test_list: data/private_test/amsv-private-test/test_pairs/sample_t1/vietnam_private_pairs.csv
+test_path: data/private_test/amsv-private-test/t1/Vietnam_Test
+
+
 embedding_file_path: kaggle/working/embed/private_embeddings_file.pickle
 embedding_full_file_path: kaggle/working/embed/private_embeddings_full_file.pickle
-save_temporary_path: kaggle/working/save.csv
+save_temporary_path: kaggle/working/save.
 test_list: kaggle/input/eval-list/eval_asv.txt
 test_path: kaggle/input/vlsp-sv-2023
 train_list: kaggle/input/output1/RawNet3-VLSP2023/train_list.txt

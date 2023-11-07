@@ -9,23 +9,48 @@ parser = argparse.ArgumentParser(description = "Asnorm")
 # Argument setting
 parser.add_argument('--config',         type=str,   default=None,   help='Config YAML file')
 parser.add_argument('--save_temporary_path',  type=str,   default="",  help='Path of save file for new labeled data')
-parser.add_argument('--embedding_file_path',  type=str,   default="",  help='Path of save file for new embedding data')
-parser.add_argument('--embedding_full_file_path',  type=str,   default="",  help='Path of save file for new embedding data')
+parser.add_argument('--embedding_file_path',  type=str,   default="kaggle/working/embed/private_embeddings_file.pickle",  help='Path of save file for new embedding data')
+parser.add_argument('--embedding_full_file_path',  type=str,   default="kaggle/working/embed/private_embeddings_full_file.pickle",  help='Path of save file for new embedding data')
 
 # Train and test data
-parser.add_argument('--train_list',     type=str,   default="data/MSV_CommonVoice_data/metadata/all_new_metadata2.txt",  help='Train list')
-parser.add_argument('--test_list',      type=str,   default="data/Test/veri_test2.txt",   help='Evaluation list')
-parser.add_argument('--train_path',     type=str,   default="data/MSV_CommonVoice_data/", help='Absolute path to the train set')
-parser.add_argument('--test_path',      type=str,   default="data/Test/wav", help='Absolute path to the test set')
+# parser.add_argument('--train_list',     type=str,   default="data/MSV_CommonVoice_data/metadata/all_new_metadata2.txt",  help='Train list')
+# parser.add_argument('--test_list',      type=str,   default="data/Test/veri_test2.txt",   help='Evaluation list')
+# parser.add_argument('--train_path',     type=str,   default="data/MSV_CommonVoice_data/", help='Absolute path to the train set')
+# parser.add_argument('--test_path',      type=str,   default="data/Test/wav", help='Absolute path to the test set')
+
+
+parser.add_argument('--num_frames', type=int,   default=200,     help='Duration of the input segments, eg: 200 for 2 second')
+parser.add_argument('--max_epoch',  type=int,   default=100,      help='Maximum number of epochs')
+parser.add_argument('--batch_size', type=int,   default=100,     help='Batch size')
+parser.add_argument('--n_cpu',      type=int,   default=2,       help='Number of loader threads')
+parser.add_argument('--test_step',  type=int,   default=1,       help='Test and save every [test_step] epochs')
+parser.add_argument('--lr',         type=float, default=0.001,   help='Learning rate')
+parser.add_argument("--lr_decay",   type=float, default=0.97,    help='Learning rate decay every [test_step] epochs')
+
+## Training and evaluation path/lists, save path
+parser.add_argument('--train_list', type=str,   default="/kaggle/working/ECAPA-VLSP23/train_list.txt",     help='The path of the training list')
+parser.add_argument('--train_path', type=str,   default="/kaggle/input/vlsp-sv-2023/vietnam_celeb",                    help='The path of the training data')
+parser.add_argument('--eval_list',  type=str,   default="kaggle/input/eval-list/eval_asv.txt",              help='The path of the evaluation list')
+parser.add_argument('--eval_path',  type=str,   default="/kaggle/input/vlsp-sv-2023",                    help='The path of the evaluation data')
+parser.add_argument('--musan_path', type=str,   default="/kaggle/input/musan-noise/musan",                    help='The path to the MUSAN set')
+parser.add_argument('--rir_path',   type=str,   default="/kaggle/input/room-impulse-response-and-noise-database/RIRS_NOISES/simulated_rirs",     help='The path to the RIR set');
+parser.add_argument('--save_path',  type=str,   default="/kaggle/working/ECAPA-VLSP23/exps/exp1",                                     help='Path to save the score.txt and models')
+
+
+## Model and Loss settings
+parser.add_argument('--C',       type=int,   default=1024,   help='Channel size for the speaker encoder')
+parser.add_argument('--m',       type=float, default=0.2,    help='Loss margin in AAM softmax')
+parser.add_argument('--s',       type=float, default=30,     help='Loss scale in AAM softmax')
+parser.add_argument('--n_class', type=int,   default=835,   help='Number of speakers')
 
 # Runing config
-parser.add_argument('--n_cpu',      type=int,   default=4,       help='Number of loader threads')
-parser.add_argument('--gpu',      type=int,   default=0,       help='GPU')
+# parser.add_argument('--n_cpu',      type=int,   default=2,       help='Number of loader threads')
+# parser.add_argument('--gpu',      type=int,   default=0,       help='GPU')
 parser.add_argument('--initial_model',  type=str,   default="",  help='Path of the initial_model')
-parser.add_argument('--optimizer',      type=str,   default="adam", help='sgd or adam')
-parser.add_argument('--model',          type=str,   default="",     help='Name of model definition')
-parser.add_argument('--trainfunc',      type=str,   default="",     help='Loss function')
-parser.add_argument('--scheduler',      type=str,   default="steplr", help='Learning rate scheduler')
+# parser.add_argument('--optimizer',      type=str,   default="adam", help='sgd or adam')
+# parser.add_argument('--model',          type=str,   default="",     help='Name of model definition')
+# parser.add_argument('--trainfunc',      type=str,   default="",     help='Loss function')
+# parser.add_argument('--scheduler',      type=str,   default="steplr", help='Learning rate scheduler')
 
 
 #Initialize
