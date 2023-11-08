@@ -18,9 +18,9 @@ parser.add_argument('--lr',         type=float, default=0.001,   help='Learning 
 parser.add_argument("--lr_decay",   type=float, default=0.97,    help='Learning rate decay every [test_step] epochs')
 
 ## Training and evaluation path/lists, save path
-parser.add_argument('--train_list', type=str,   default="/kaggle/working/ECAPA-VLSP23/train_list.txt",     help='The path of the training list')
+parser.add_argument('--train_list', type=str,   default="/kaggle/working/ECAPA/train_list.txt",     help='The path of the training list')
 parser.add_argument('--train_path', type=str,   default="/kaggle/input/vlsp-sv-2023/vietnam_celeb",                    help='The path of the training data')
-parser.add_argument('--eval_list',  type=str,   default="/kaggle/working/ECAPA-VLSP23/eval_list.txt",              help='The path of the evaluation list')
+parser.add_argument('--eval_list',  type=str,   default="/kaggle/working/ECAPA/eval_asv.txt",              help='The path of the evaluation list')
 parser.add_argument('--eval_path',  type=str,   default="/kaggle/input/vlsp-sv-2023/spoofing_data",                    help='The path of the evaluation data')
 parser.add_argument('--musan_path', type=str,   default="/kaggle/input/musan-noise/musan",                    help='The path to the MUSAN set')
 parser.add_argument('--rir_path',   type=str,   default="/kaggle/input/room-impulse-response-and-noise-database/RIRS_NOISES/simulated_rirs",     help='The path to the RIR set');
