@@ -145,7 +145,7 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
         if not full:
             print('Loading cut audio')
             for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
-                audio, _  = soundfile.read(os.path.join(test_path, file))  
+                audio, _  = soundfile.read(os.path.join(eval_path, file))  
                 
                 # Splited utterance matrix
                 max_audio = 300 * 160 + 240
@@ -167,7 +167,7 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
         else:
             print('loading full audio')
             for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
-                audio, _  = soundfile.read(os.path.join(test_path, file)) 
+                audio, _  = soundfile.read(os.path.join(eval_path, file)) 
             # Full utterance
                 data_1 = torch.FloatTensor(numpy.stack([audio],axis=0)).cuda()
                 with torch.no_grad():
