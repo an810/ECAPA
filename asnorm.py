@@ -5,14 +5,14 @@ from sklearn.metrics.pairwise import cosine_similarity as cs_sklearn
 from ECAPAModel import *
 from model import ECAPA_TDNN
 import random
-
+from tools import *
 
 parser = argparse.ArgumentParser(description = "Asnorm")
 # Argument setting
 parser.add_argument('--config',         type=str,   default=None,   help='Config YAML file')
 parser.add_argument('--save_temporary_path',  type=str,   default="/kaggle/working/save.csv",  help='Path of save file for new labeled data')
-parser.add_argument('--embedding_file_path',  type=str,   default="/kaggle/working/embed/private_embeddings_file.pickle",  help='Path of save file for new embedding data')
-parser.add_argument('--embedding_full_file_path',  type=str,   default="/kaggle/working/embed/private_embeddings_full_file.pickle",  help='Path of save file for new embedding data')
+parser.add_argument('--embedding_file_path',  type=str,   default="/kaggle/working/private_embeddings_file.pickle",  help='Path of save file for new embedding data')
+parser.add_argument('--embedding_full_file_path',  type=str,   default="/kaggle/working/private_embeddings_full_file.pickle",  help='Path of save file for new embedding data')
 
 # Train and test data
 # parser.add_argument('--train_list',     type=str,   default="data/MSV_CommonVoice_data/metadata/all_new_metadata2.txt",  help='Train list')
@@ -251,8 +251,8 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
 
 if __name__ == '__main__':
     h = pd.read_csv(args.eval_list, sep='\t', header = None)
-    h[2] = 0
-    h = h[h.columns[[-1,0,1]]]
+    # h[2] = 0
+    # h = h[h.columns[[-1,0,1]]]
     h.to_csv(args.save_temporary_path, sep='\t',index=False,header=False)
 
     # n = SpeakerNet(**vars(args))
@@ -265,7 +265,7 @@ if __name__ == '__main__':
     fmt = "\n=== {:30} ===\n"
     train_list1 = args.train_list
     train_path1 = args.train_path
-    train_embedding_file = '/kaggle/working/embed/train_embeddings_file.pickle'
+    train_embedding_file = '/kaggle/working/train_embeddings_file.pickle'
 
     print(fmt.format('Loading train_embedding_dict'))
     train_embedding_dict = create_embedding_dict('train',train_list1, train_path1, model, train_embedding_file)
@@ -307,5 +307,5 @@ if __name__ == '__main__':
         labels.append(line.split()[0])
     EER = tuneThresholdfromScore(scores, labels, [1, 0.1])[1]
     print('EER: ', EER)
-    h[2] = pd.Series(final_scale)
-    h.to_csv(args.save_temporary_path, sep='\t',index=False,header=False)
+    # h[2] = pd.Series(final_scale)
+    # h.to_csv(args.save_temporary_path, sep='\t',index=False,header=False)
