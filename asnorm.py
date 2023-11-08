@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import yaml, pickle
 import argparse, warnings
 from sklearn.metrics.pairwise import cosine_similarity as cs_sklearn

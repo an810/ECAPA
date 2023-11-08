@@ -7,7 +7,6 @@ scikit-learn
 tqdm
 torchvision
 soundfile
-torch 
 torchaudio
 pandas
 scipy
