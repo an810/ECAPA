@@ -100,7 +100,7 @@ def create_embedding_dict(name, data_list, data_path, model, embedding_dict_file
         
         for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
             audio, _  = soundfile.read(os.path.join(data_path, file))       
-            data_1 = torch.FloatTensor(numpy.stack([audio],axis=0))
+            data_1 = torch.FloatTensor(numpy.stack([audio],axis=0)).cuda()
             with torch.no_grad():
                 embedding = model.speaker_encoder.forward(data_1, aug = False)
                 embedding = F.normalize(embedding, p=2, dim=1)
