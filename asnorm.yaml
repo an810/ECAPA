@@ -4,7 +4,7 @@ batch_size: 32
 embedding_file_path: kaggle/working/embed/private_embeddings_file.pickle
 embedding_full_file_path: kaggle/working/embed/private_embeddings_full_file.pickle
 save_temporary_path: kaggle/working/save.csv
-test_list: kaggle/input/eval-list/eval_asv.txt
-test_path: kaggle/input/vlsp-sv-2023
+eval_list: kaggle/input/eval-list/eval_asv.txt
+eval_path: kaggle/input/vlsp-sv-2023
 train_list: kaggle/input/output1/RawNet3-VLSP2023/train_list.txt
 train_path: kaggle/input/vlsp-sv-2023/vietnam_celeb

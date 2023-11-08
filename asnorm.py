@@ -102,7 +102,7 @@ def create_embedding_dict(name, data_list, data_path, model, embedding_dict_file
             audio, _  = soundfile.read(os.path.join(data_path, file))       
             data_1 = torch.FloatTensor(numpy.stack([audio],axis=0))
             with torch.no_grad():
-                embedding = model(data_1)
+                embedding = model.speaker_encoder.forward(data_1, aug = False)
                 embedding = F.normalize(embedding, p=2, dim=1)
             embedding_dict[file] = embedding
         
@@ -133,7 +133,7 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
 
     if "score_norm" in params:
         train_cohort = torch.stack(list(train_embedding_dict.values()))
-        
+    
     lines = open(eval_list).read().splitlines()
     for line in lines:
         files.append(line.split()[1])
@@ -145,7 +145,7 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
         if not full:
             print('Loading cut audio')
             for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
-                audio, _  = soundfile.read(os.path.join(eval_path, file))  
+                audio, _  = soundfile.read(os.path.join(test_path, file))  
                 
                 # Splited utterance matrix
                 max_audio = 300 * 160 + 240
@@ -161,17 +161,17 @@ def cosine_score(model, eval_list, eval_path, full=False, norm=True, embeddings_
                 data_2 = torch.FloatTensor(feats).cuda()    
 
                 with torch.no_grad():
-                    embedding_2 = model(data_2)
+                    embedding_2 = model.speaker_encoder.forward(data_2, aug = False)
                     embedding_2 = F.normalize(embedding_2, p=2, dim=1)
                 embeddings[file] = embedding_2
         else:
             print('loading full audio')
             for idx, file in tqdm.tqdm(enumerate(setfiles), total = len(setfiles)):
-                audio, _  = soundfile.read(os.path.join(eval_path, file)) 
+                audio, _  = soundfile.read(os.path.join(test_path, file)) 
             # Full utterance
                 data_1 = torch.FloatTensor(numpy.stack([audio],axis=0)).cuda()
                 with torch.no_grad():
-                    embedding_2 = model(data_1)
+                    embedding_2 = model.speaker_encoder.forward(data_1, aug = False)
                     embedding_2 = F.normalize(embedding_2, p=2, dim=1)
                 embeddings[file] = embedding_2
 
