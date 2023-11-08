@@ -9,7 +9,7 @@ import random
 parser = argparse.ArgumentParser(description = "Asnorm")
 # Argument setting
 parser.add_argument('--config',         type=str,   default=None,   help='Config YAML file')
-parser.add_argument('--save_temporary_path',  type=str,   default="/kaggle/working/save.csv",  help='Path of save file for new labeled data')
+parser.add_argument('--save_temporary_path',  type=str,   default="/kaggle/working",  help='Path of save file for new labeled data')
 parser.add_argument('--embedding_file_path',  type=str,   default="/kaggle/working/embed/private_embeddings_file.pickle",  help='Path of save file for new embedding data')
 parser.add_argument('--embedding_full_file_path',  type=str,   default="/kaggle/working/embed/private_embeddings_full_file.pickle",  help='Path of save file for new embedding data')
 
