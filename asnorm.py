@@ -264,7 +264,7 @@ if __name__ == '__main__':
     fmt = "\n=== {:30} ===\n"
     train_list1 = args.train_list
     train_path1 = args.train_path
-    train_embedding_file = '/kaggle/input/rawnet3-model/ECAPA_DEV_SET_ecapa_emb.pkl'
+    train_embedding_file = '/kaggle/working/embed/train_embeddings_file.pickle'
 
     print(fmt.format('Loading train_embedding_dict'))
     train_embedding_dict = create_embedding_dict('train',train_list1, train_path1, model, train_embedding_file)
