@@ -258,7 +258,7 @@ if __name__ == '__main__':
     # n = SpeakerNet(**vars(args))
     # n = WrappedModel(n).cuda()
     # s = ModelTrainer(n, **vars(args))
-    model = ECAPAModel(s, **vars(args))
+    model = ECAPAModel(**vars(args))
     model.load_parameters(args.initial_model)
  
 
