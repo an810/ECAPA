@@ -279,14 +279,14 @@ if __name__ == '__main__':
 
     print(fmt.format('Calculating Score'))
     scores = cosine_score(
-        s, 
+        model, 
         args.save_temporary_path, 
         args.eval_path,     
         embeddings_file=args.embedding_file_path
     )
 
     scores_2 = cosine_score(
-        s, 
+        model, 
         args.save_temporary_path, 
         args.eval_path,     
         full=True,
