@@ -301,12 +301,12 @@ if __name__ == '__main__':
 
     final_scale = (np.array(scaled) + np.array(scaled_2))/2
 
-    h = pd.read_csv(args.eval_list, sep='\t', header = None)
+    # h = pd.read_csv(args.eval_list, sep='\t', header = None) 
     lines = open(args.eval_list).read().splitlines()
     labels = []
     for line in lines:
-        labels.append(line.split()[0])
+        labels.append(int(line.split()[0]))
     EER = tuneThresholdfromScore(scores, labels, [1, 0.1])[1]
-    print('EER: ', EER)
+    print("EER %2.2f%%"%(EER))
     # h[2] = pd.Series(final_scale)
     # h.to_csv(args.save_temporary_path, sep='\t',index=False,header=False)
